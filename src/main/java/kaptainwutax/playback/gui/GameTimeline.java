@@ -12,6 +12,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -63,7 +64,10 @@ public class GameTimeline extends DrawableHelper implements Drawable, Element, S
 
 		//Code mostly inspired from hotbar (InGameHud.renderHotbar)
 		//RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		MinecraftClient.getInstance().getTextureManager().bindTexture(TEXTURE);
+		RenderSystem.setShaderTexture(0, TEXTURE);
+		RenderSystem.enableBlend();
+		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		int i = this.width / 2;
 		int prevBlitOffset = this.getZOffset();
 		//BlitOffset is a z value, more positive renders on top
@@ -93,6 +97,8 @@ public class GameTimeline extends DrawableHelper implements Drawable, Element, S
 
 		this.setZOffset(prevBlitOffset);
 		//RenderSystem.disableRescaleNormal();
+		//RenderSystem.disableBlend();
+		RenderSystem.defaultBlendFunc();
 		RenderSystem.disableBlend();
 		//int xAdd = this.width / 2;
 		//int yAdd = this.height / 2;

@@ -35,8 +35,8 @@ public class ReplayHudScreen extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        //this.drawables.forEach(e -> e.render(matrices, mouseX, mouseY, delta));
-        //super.render(matrices, mouseX, mouseY, delta); TODO: re-add
+        this.drawables.forEach(e -> e.render(matrices, mouseX, mouseY, delta));
+        super.render(matrices, mouseX, mouseY, delta); //TODO: re-add
 
         //Parameters have the wrong name in fillGradient: order is LEFT,TOP,RIGHT,BOTTOM
         //top left corner
